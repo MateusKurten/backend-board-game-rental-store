@@ -23,4 +23,7 @@ app.use(express.json())
 app.use('/games',gameRoutes)
 // app.use('/slides',slideRoutes)
 
-exports.firebaseApp = onRequest(app);
+exports.firebaseApp = onRequest(
+    { cors: true },
+    app
+);

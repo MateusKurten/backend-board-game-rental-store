@@ -1,4 +1,4 @@
-const {collection, addDoc, getDocs, deleteDoc, doc} = require('firebase/firestore');
+const {collection, addDoc, getDoc, getDocs, deleteDoc, doc} = require('firebase/firestore');
 const {db} = require('../firebase');
 
 const getGames = async (req, res) => {
@@ -10,24 +10,26 @@ const getGames = async (req, res) => {
     res.status(200).json(r);
 }
 
-const addGame= (req,res)=>{
+const addGame= async (req,res)=>{
     // const department = req.body
     // departments.push(department.department)
     // res.status(200).json(departments)
-    res.send('addGame')
+    const docRef = await addDoc(collection(db, "games"), req.body);
+    const docSnap = await getDoc(docRef);
+    res.status(200).json({ ...docSnap.data(), id: docSnap.id });
 }
 
-const removeGame = (req,res)=>{
-    // const department = req.body.department
-    // const index = departments.findIndex((d)=>d===department)
+const removeGame = async (req,res)=>{
+    const docRef = doc(db, 'games', req.params.id);
+    const docSnap = await getDoc(docRef);
 
-    // if(index === -1)
-    // {
-    //     return res.status(404).json({message:'Game not found'})
-    // }
-    // departments.splice(index,1)
-    // res.status(200).json({message:' Game Deleted'})  
-    res.send('removeGame')
+    if (docSnap.exists()) {
+        await deleteDoc(docRef)
+            .then(res.status(200).json({message:'Game Deleted'}))
+            .catch(err => res.status(500).json({message: err}));
+    } else {
+        res.status(404).json({message:'Game not found'})
+    }
 }
 
 module.exports = {getGames,addGame,removeGame}
