@@ -1,4 +1,4 @@
-const {Validator} = require('jsonschema')
+const { Validator } = require('jsonschema')
 const validator = new Validator()
 
 const userSchema = {    
@@ -11,7 +11,7 @@ const userSchema = {
     "required": ['email','password']
   }
 
-  const validateDataUser = (e)=>{
+  const validateDataUser = (e) => {
     return validator.validate(e,userSchema)
   }
 

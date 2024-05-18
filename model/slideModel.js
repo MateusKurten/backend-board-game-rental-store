@@ -1,4 +1,4 @@
-const {Validator} = require('jsonschema')
+const { Validator } = require('jsonschema')
 const validator = new Validator()
 
 const slideSchema = {    
@@ -6,7 +6,7 @@ const slideSchema = {
     properties: {
         id: {type: 'string'},
         img: {type: 'string'},
-        order: {type: 'number', minimum: 1}
+        order: {type: 'string', pattern: "^[0-9]+$"}
     },
     "required": ['img','order']
   }
@@ -15,4 +15,4 @@ const slideSchema = {
     return validator.validate(e,slideSchema)
   }
 
-  module.exports= {validateDataSlide}   
+  module.exports = {validateDataSlide}   

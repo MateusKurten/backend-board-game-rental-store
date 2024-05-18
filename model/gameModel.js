@@ -1,4 +1,4 @@
-const {Validator} = require('jsonschema')
+const { Validator } = require('jsonschema');
 const validator = new Validator()
 
 const gameSchema = {    
@@ -7,10 +7,10 @@ const gameSchema = {
         id: {type: 'string'},
         game: {type: 'string', minLength: 3, maxLength: 50},
         difficulty: {type: 'string'},
-        maxplayers: {type: 'number', maximum: 18},
-        minplayers: {type: 'number', minimum: 2},
-        price: {type:'number', minimum: 0},
-        roundtime:{type:'number', minimum: 0},
+        maxplayers: {type: 'string', pattern: "^[0-9]+$"},
+        minplayers: {type: 'string', pattern: "^[0-9]+$"},
+        price: {type:'string', pattern: "^[0-9]+$"},
+        roundtime:{type:'string', pattern: "^[0-9]+$"},
         img: {type:'string'},
     },
     "required": [
@@ -23,8 +23,8 @@ const gameSchema = {
     ]
   }
 
-  const validateDataGame = (e)=>{
+  const validateDataGame = (e) => {
     return validator.validate(e,gameSchema)
   }
 
-  module.exports = {validateDataGame}
+  module.exports = { validateDataGame }
