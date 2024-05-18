@@ -1,4 +1,4 @@
-# Board Game Rental Website
+# Board Game Rental API
 
 This application was developed by Mateus Kürten Rodrigues as part of the Infnet Fullstack postgraduate course. It simulates an API to be consumed by [this React Application](https://github.com/MateusKurten/board-game-rental-store).
 
